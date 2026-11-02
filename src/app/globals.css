@@ -1,0 +1,79 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-montserrat), ui-sans-serif, system-ui, sans-serif;
+
+  /* Lab (dark) palette — sampled from the reel's hero + lab frames */
+  --color-abyss: #050d18;
+  --color-navy-950: #071423;
+  --color-navy-900: #0b1c30;
+  --color-navy-800: #12283f;
+  --color-steel-700: #3d5568;
+  --color-steel-500: #6b8599;
+  --color-steel-300: #a9bccb;
+  --color-cyan-glow: #4fd8ff;
+  --color-cyan-soft: #9beaff;
+  --color-cyan-deep: #12a8d6;
+
+  /* Clinic (light) palette — from the closing "Engineered with precision" frame */
+  --color-mist: #eef2f5;
+  --color-cloud: #f7f9fb;
+  --color-ink: #0d1726;
+  --color-ink-soft: #4a5868;
+
+  --shadow-glow: 0 0 24px rgb(79 216 255 / 0.55), 0 0 64px rgb(79 216 255 / 0.25);
+  --shadow-card: 0 1px 2px rgb(13 23 38 / 0.04), 0 12px 40px -12px rgb(13 23 38 / 0.18);
+
+  --animate-spin-slow: spin 18s linear infinite;
+  --animate-spin-rev: spin-rev 26s linear infinite;
+  --animate-pulse-ring: pulse-ring 2.4s ease-out infinite;
+  --animate-scan: scan 2.8s ease-in-out infinite;
+  --animate-float: float 6s ease-in-out infinite;
+
+  @keyframes spin-rev { to { transform: rotate(-360deg); } }
+  @keyframes pulse-ring {
+    0% { transform: scale(0.85); opacity: 0.8; }
+    100% { transform: scale(1.35); opacity: 0; }
+  }
+  @keyframes scan {
+    0%, 100% { transform: translateY(-40%); opacity: 0; }
+    15%, 85% { opacity: 1; }
+    50% { transform: translateY(40%); }
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+}
+
+@layer base {
+  html { scroll-behavior: smooth; }
+  body {
+    @apply bg-abyss text-white antialiased;
+    font-family: var(--font-sans);
+  }
+  ::selection { background: rgb(79 216 255 / 0.35); }
+  :focus-visible { outline: 2px solid var(--color-cyan-glow); outline-offset: 3px; border-radius: 6px; }
+}
+
+@layer utilities {
+  .glow-text { text-shadow: 0 0 18px rgb(79 216 255 / 0.65); }
+  .lab-grid {
+    background-image:
+      linear-gradient(rgb(79 216 255 / 0.07) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(79 216 255 / 0.07) 1px, transparent 1px);
+    background-size: 56px 56px;
+  }
+  .glass {
+    background: rgb(255 255 255 / 0.06);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgb(155 234 255 / 0.18);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
+}
